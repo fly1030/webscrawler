@@ -2,6 +2,7 @@ import urllib
 import urllib2
 from setup import *
 from collect_url import *
+import re
 
 class Spider(object):
     ### global variables shared among all spiders
@@ -47,8 +48,8 @@ class Spider(object):
         html_output = ""
         try:
             response = urllib.urlopen(url)
-            ##print response.headers
-            if response.headers['Content-Type'] == "text/html":
+            test = response.headers['Content-Type'].find("text/html")
+            if test != -1:
                 html_orig = response.read()
                 html_output = html_orig.decode("utf-8")
             newLinks = CollectUrl(Spider.baseurl, url)

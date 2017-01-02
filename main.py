@@ -5,14 +5,17 @@ from collect_url import *
 from spider import *
 from getDomainName import *
 
-PROJECT = "borderx"
-BASEURL = "http://borderxlab.com"
+##PROJECT = "borderx"
+##BASEURL = "http://borderxlab.com"
+NUM_OF_THREADS = 8
+threads = Queue.Queue()
+
+## User interface:
+PROJECT = raw_input("Define project name: ")
+BASEURL = raw_input("Define initial start URL link: ")
 DOMAIN = getDomainName(BASEURL)
 TARGETURL = PROJECT + "/target.txt"
 VISITEDURL = PROJECT + "/visited.txt"
-NUM_OF_THREADS = 8
-
-threads = Queue.Queue()
 
 ## create the first spider to launch the engine and create the structures
 firstspider = Spider(PROJECT, DOMAIN, BASEURL)
@@ -23,9 +26,10 @@ def update_threads():
     threads.join()
     process()
 
+
+## update threads while there is more jobs to process in queue
 def process():
     if len(Spider.target_set) != 0:
-        ## update threads while there is more jobs to process in queue
         update_threads()
 
 ## create multiple Spiders
@@ -36,6 +40,7 @@ def create_threads():
         new.daemon = True
         new.start()
 
+## crawl pages in target set
 def crawlpage():
     while 1 > 0:
         curr_url = threads.get()
