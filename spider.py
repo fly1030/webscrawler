@@ -2,10 +2,7 @@ import urllib
 import urllib2
 from setup import *
 from collect_url import *
-<<<<<<< HEAD
 import re
-=======
->>>>>>> f180413cdcf3cb2b5835b5b6af712c426c5a25f3
 
 class Spider(object):
     ### global variables shared among all spiders
@@ -51,13 +48,8 @@ class Spider(object):
         html_output = ""
         try:
             response = urllib.urlopen(url)
-<<<<<<< HEAD
             test = response.headers['Content-Type'].find("text/html")
             if test != -1:
-=======
-            ##print response.headers
-            if response.headers['Content-Type'] == "text/html":
->>>>>>> f180413cdcf3cb2b5835b5b6af712c426c5a25f3
                 html_orig = response.read()
                 html_output = html_orig.decode("utf-8")
             newLinks = CollectUrl(Spider.baseurl, url)
