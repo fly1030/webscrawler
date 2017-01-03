@@ -24,6 +24,7 @@ def append_url(filename, new_url):
         print filename + " does not exist!"
         return
     f = open(filename, 'a')
+    new_url = new_url.encode('ascii', 'ignore')
     f.write(new_url + "\n")
     f.close()
 
