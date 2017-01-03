@@ -52,6 +52,8 @@ class Spider(object):
             if test != -1:
                 html_orig = response.read()
                 html_output = html_orig.decode("utf-8")
+                html_output = html_output.encode('ascii', 'ignore')
+                ##html_output = unicode(html_output.strip(codecs.BOM_UTF8), 'utf-8')
             newLinks = CollectUrl(Spider.baseurl, url)
             newLinks.feed(html_output)
 
